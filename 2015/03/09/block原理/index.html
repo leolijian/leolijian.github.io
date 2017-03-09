@@ -87,12 +87,31 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta name="description" content="OS日常开发中，几乎天天与block接触，如API的回调，传值，替代delegate，动画，GCD等等，这里只简单探究block生成与执行过程原理，重点去思考代码是怎么来的。
+如有不正确的地方，请不吝赐教。
+先来看一段Objective-C简单的代码
+1int main(int argc, const char * argv[]) {
+__block int i = 1024;
+int j = 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="block原理">
+<meta property="og:url" content="http://yoursite.com/2015/03/09/block原理/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="OS日常开发中，几乎天天与block接触，如API的回调，传值，替代delegate，动画，GCD等等，这里只简单探究block生成与执行过程原理，重点去思考代码是怎么来的。
+如有不正确的地方，请不吝赐教。
+先来看一段Objective-C简单的代码
+1int main(int argc, const char * argv[]) {
+__block int i = 1024;
+int j = 1">
+<meta property="og:updated_time" content="2017-03-09T08:45:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="block原理">
+<meta name="twitter:description" content="OS日常开发中，几乎天天与block接触，如API的回调，传值，替代delegate，动画，GCD等等，这里只简单探究block生成与执行过程原理，重点去思考代码是怎么来的。
+如有不正确的地方，请不吝赐教。
+先来看一段Objective-C简单的代码
+1int main(int argc, const char * argv[]) {
+__block int i = 1024;
+int j = 1">
 
 
 
@@ -120,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/"/>
+  <link rel="canonical" href="http://yoursite.com/2015/03/09/block原理/"/>
 
 
 
 
 
-  <title> 归档 | Hexo </title>
+  <title> block原理 | Hexo </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -151,7 +170,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -235,108 +254,155 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 2 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/09/title/" itemprop="url">
-              
-                <span itemprop="name">title</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-09T16:13:03+08:00"
-              content="2017-03-09" >
-          03-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2015">2015</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2015/03/09/block原理/" itemprop="url">
-              
-                <span itemprop="name">block原理</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2015-03-09T16:45:33+08:00"
-              content="2015-03-09" >
-          03-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/03/09/block原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="lijian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                block原理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-09T16:45:33+08:00">
+                2015-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>OS日常开发中，几乎天天与block接触，如API的回调，传值，替代delegate，动画，GCD等等，这里只简单探究block生成与执行过程原理，重点去思考代码是怎么来的。</p>
+<p>如有不正确的地方，请不吝赐教。</p>
+<p>先来看一段Objective-C简单的代码</p>
+<p>1<br>int main(int argc, const char * argv[]) {</p>
+<p>__block int i = 1024;</p>
+<p>int j = 1;</p>
+<p>void (^blk)(void);</p>
+<p>blk = ^{<br>printf(“%d, %d\n”, i, j);<br>};</p>
+<p>i ++;<br>j ++;</p>
+<p>blk();</p>
+<p>}<br>blk中对i，j进行了引用，并分别打印出它们的值。输出结果为 1025， 1，并不是1015， 2。这是为什么呢？</p>
+<p>建一个项目,选择OSX中的Command line Tool，语言选择C++</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/09/title/" rel="prev" title="title">
+                title <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
           
           </div>
@@ -344,6 +410,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -513,11 +583,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   
